@@ -1,16 +1,9 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
-import { Row, Col, InputGroup } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-
 import * as Yup from "yup";
-
 import { Formik, Field, Form } from "formik";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-// imports from old project
 import { useState } from "react";
-import { useHistory } from "react-router";
 import axios from "axios";
 
 function Create_Form() {
@@ -18,19 +11,14 @@ function Create_Form() {
   const [firstName, setFirstName] = useState("");
   const [surname, setSurname] = useState("");
 
-  // SETUP HISTORY
-  //let history = useHistory(); // THIS LINE SEEMS TO MESS UP HOOKS
-
   // SETUP MOCK API CALL
   const callMockAPI = (data) => {
-    // CALL MOCK API
     const endpointURL =
       "https://6151d1804a5f22001701d45b.mockapi.io/api/v1/insuranceForm";
     axios.post(endpointURL, data).then((res) => {
       console.log(res);
       console.log(res.data);
     });
-
     // ALERT USER
     alert("New Record Created!");
   };
@@ -38,21 +26,23 @@ function Create_Form() {
   return (
     <Container>
       <Formik
-        initialValues={{ firstName: "", surname: "" }}
+        initialValues={{ firstName: "", surname: "" }} // SET ALL INITIAL VALUES HERE
         onSubmit={async (values) => {
           const data = {
             records: [
               {
                 fields: {
+                  // ADD ALL FIELDS AND VALUES HERE
                   firstName: values.firstName,
                   surname: values.surname,
                 },
               },
             ],
           };
-          callMockAPI(data);
+          callMockAPI(data); // PASS DATA TO MOCK API
         }}
         validationSchema={Yup.object({
+          // UPDATE SCHEMA HERE FOR VALIDATION
           firstName: Yup.string()
             .max(15, "Must be 15 characters or less")
             .required("First Name is required"),
@@ -63,7 +53,7 @@ function Create_Form() {
       >
         {(formik, isSubmitting) => (
           <Form>
-            <h4>Contact Us</h4>
+            <h4>Insurance Form</h4>
             <div className="form-group">
               <label htmlFor="name">First Name</label>
               <Field
