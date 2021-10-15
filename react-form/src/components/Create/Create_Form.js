@@ -29,15 +29,9 @@ function Create_Form() {
         initialValues={{ firstName: "", surname: "" }} // SET ALL INITIAL VALUES HERE
         onSubmit={async (values) => {
           const data = {
-            records: [
-              {
-                fields: {
-                  // ADD ALL FIELDS AND VALUES HERE
-                  firstName: values.firstName,
-                  surname: values.surname,
-                },
-              },
-            ],
+            // ADD ALL FIELDS AND VALUES HERE
+            firstName: values.firstName,
+            surname: values.surname,
           };
           callMockAPI(data); // PASS DATA TO MOCK API
         }}
